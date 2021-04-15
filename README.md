@@ -60,6 +60,31 @@ def zdk
 end
 puts zdk # => ["Doko", "Zun", "Zun", "Zun", "Zun", "Doko", "Ki-Yo-Shi!"]
 ```
+no use  
+```crystal
+class StateMachine
+  State_tbl = {t0: [0, 2, 2, 3], t1: [2, 1, 1, 3], t2: [0, 1, 3, 0], t3: [0, 0, 2, 1]}
+  getter state
+  def initialize(init_s : Int32)
+    @state = init_s
+  end
+  macro def_trans(name)
+    def {{name}}
+      @state = State_tbl[:{{name}}][@state]
+      self
+    end
+  end
+  def_trans t0
+  def_trans t1
+  def_trans t2
+  def_trans t3
+end
+
+# run
+puts StateMachine.new(0).t0.t1.t2.t3.t0.t1.t2.t3.state # => 0
+```
+
+<br />
 
 ## Contributors
 
