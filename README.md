@@ -60,7 +60,7 @@ def zdk
 end
 puts zdk # => ["Doko", "Zun", "Zun", "Zun", "Zun", "Doko", "Ki-Yo-Shi!"]
 ```
-no use  
+do not use  
 ```crystal
 class StateMachine
   State_tbl = {t0: [0, 2, 2, 3], t1: [2, 1, 1, 3], t2: [0, 1, 3, 0], t3: [0, 0, 2, 1]}
