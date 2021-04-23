@@ -33,7 +33,27 @@ module Esty
       Delay(Array(String)).new([""]){{{x}}}
     end
   end
+
+  # 構文2
+  @@b = true
+
+  class E
+    macro s(bbb)
+      @@b = {{bbb}}
+    end
+    macro if(t, e)
+      if @@b
+        {{t}}
+      else
+        {{e}}
+      end
+    end
+  end
+
+  class Ty < E
+  end
 end
+
 
 # Bool 構造体にメソッドを追加
 struct Bool
