@@ -40,15 +40,15 @@ struct Int
   end
   # zundoko
   def zdk_base(str_arr)
-    rand.>(0.5).ifp ->{self.succ.zdk_base3 str_arr << "Zun"},
-      ->{(self.>=(4)).ifp ->{str_arr << "Doko" << "Ki-Yo-Shi!"}, ->{0.zdk_base3 str_arr << "Doko"}}
+    rand.>(0.5).ifp ->{self.succ.zdk_base str_arr << "Zun"},
+      ->{(self.>=(4)).ifp ->{str_arr << "Doko" << "Ki-Yo-Shi!"}, ->{0.zdk_base str_arr << "Doko"}}
   end
 end
 
 # run
 puts 10.fact # => 3628800
 
-puts (0..10).to_a.map &.fib # => [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+puts (0..10).to_a.map &.fib.as(Int32) # => [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 puts 3.collatz # => [3, 10, 5, 16, 8, 4, 2, 1]
 
@@ -104,5 +104,6 @@ end
 <br />
 
 ## 更新履歴
+21/04/25 v0.2.1 README の軽微な訂正  
 21/04/25 v0.2.0 構文1 を刷新 & 構文2 を追加  
 21/04/11 v0.1.0 init
