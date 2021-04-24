@@ -6,7 +6,7 @@ struct Int
   include Esty
   # 階乗
   def fact
-    self.<=(0).if 1, D.i(self.pred.fact.*(self))
+    self.<=(0).ifp 1, ->{self.pred.fact.*(self)}
   end
   def fact2
     #self.<=(0).y_s{|b| b ? 1 : self.pred.fact.*(self)}
