@@ -24,24 +24,24 @@ struct Int
   include Esty
   # factorial
   def fact
-    self.<=(0).if 1, D.i(self.pred.fact.*(self))
+    self.<=(0).ifp 1, ->{self.pred.fact.*(self)}
   end
   # Fibonacci
   def fib
-    self.<=(1).if (self.==(0).if 0, 1), D.i(self.pred.fib.+(self.pred.pred.fib))
+    self.<=(1).ifp self, ->{self.pred.fib.+(self.pred.pred.fib)}
   end
   # collatz (0 is inf loop)
   def collatz
-    self.==(1).if [1], D.ai(self.odd?.if D.ai(self.*(3).succ.collatz.unshift(self)), D.ai(self.tdiv(2).collatz.unshift(self)))
+    self.==(1).ifp [1], ->{self.odd?.ifp ->{self.*(3).succ.collatz.unshift(self)}, ->{self.tdiv(2).collatz.unshift(self)}}
   end
   # FizzBuzz
   def fizzbuzz
-    (s = (self.%(3).==(0).if "Fizz", "").+(self.%(5).==(0).if "Buzz", "")).==("").if self.to_s, s
+    (s = (self.%(3).==(0).ifp "Fizz", "").+(self.%(5).==(0).ifp "Buzz", "")).==("").ifp self.to_s, s
   end
   # zundoko
   def zdk_base(str_arr)
-    rand.>(0.5).if D.ast(self.succ.zdk_base str_arr << "Zun"),
-      D.ast((self.>=(4)).if D.ast(str_arr << "Doko" << "Ki-Yo-Shi!"), D.ast(0.zdk_base str_arr << "Doko"))
+    rand.>(0.5).ifp ->{self.succ.zdk_base3 str_arr << "Zun"},
+      ->{(self.>=(4)).ifp ->{str_arr << "Doko" << "Ki-Yo-Shi!"}, ->{0.zdk_base3 str_arr << "Doko"}}
   end
 end
 
@@ -84,8 +84,25 @@ end
 puts StateMachine.new(0).t0.t1.t2.t3.t0.t1.t2.t3.state # => 0
 ```
 
+syntax 2
+```crystal
+struct Int
+  include Esty
+  # factorial
+  def fact
+    E.s(self.<=(0));Ty.if 1, self.pred.fact.*(self)
+  end
+end
+```
+
 <br />
 
 ## Contributors
 
 - [righ1113](https://github.com/righ1113) - creator and maintainer
+
+<br />
+
+## 更新履歴
+21/04/25 v0.2.0 構文1 を刷新 & 構文2 を追加  
+21/04/11 v0.1.0 init
